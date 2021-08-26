@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../../components/partials/Layout/Layout'
-import { getAllMovies, getMoreMovies } from '../../redux/Films/AvailabilityAction'
+import { getAllMovies, getMoreMovies, getSuggestionWord } from '../../redux/Films/AvailabilityAction'
 import classes from './Home.module.scss'
 import { connect } from 'react-redux'
+import Backdrop from '../../components/shared/Backdrop/Backdrop'
+import Suggestion from '../../components/shared/Suggestion/Suggestion'
+
 
 function Home(props) {
   const [title, setTitle] = useState('batman')
+  const [isActiveBackdrop, setIsActiveBackdrop] = useState(false)
 
   useEffect(() => {
     props.onInitialMovies({title: title, page: props.page})
@@ -41,6 +45,22 @@ function Home(props) {
     let payload = { title, page: 1 }
     props.onInitialMovies(payload)
   }
+
+  const onChangeHandler = (e) => {
+    setIsActiveBackdrop(true)
+    setTitle(e.target.value)
+  }
+
+  const onKeyUpHandler = () => {
+    props.getSuggestionWord({keyword: title})
+  }
+
+  const changeTitleFromSuggestionHandler = (value) => {
+    setTitle(value)
+    setIsActiveBackdrop(false)
+    props.onInitialMovies({ title: value, page: 1 })
+
+  }
   
   let movieList = null
   if (props.movies && props.movies.length > 0) {
@@ -70,11 +90,21 @@ function Home(props) {
   return (
     <div>
       <Layout>
+        <Backdrop isActiveBackdrop={isActiveBackdrop} clickedBackdrop={() => setIsActiveBackdrop(!isActiveBackdrop)}/>
         <div className={classes.Wrapper}>
           <div className={classes.Container}>
             <div className={classes.FilterArea}>
-              <input type="text" placeholder="Cari film.." value={title} onChange={(e) => setTitle(e.target.value)} />
+              <input  
+                type="text"
+                placeholder="Cari film.."
+                value={title}
+                onChange={(e) => onChangeHandler(e)}
+                onKeyUp={() => onKeyUpHandler()}/>
               <button onClick={() => submitKeyword()}>Cari</button>
+              <Suggestion
+                isActiveBackdrop={isActiveBackdrop}
+                suggestions={props.suggestionWords}
+                clickedToChangeTitle={(value) => changeTitleFromSuggestionHandler(value)}/>
             </div>
             <div className={classes.Content}>
               {movieList}
@@ -89,14 +119,16 @@ function Home(props) {
 const mapStateToProps = (state) => {
   return {
     movies: state.MovieReducer.movies,
-    page: state.MovieReducer.page
+    page: state.MovieReducer.page,
+    suggestionWords: state.MovieReducer.suggestionWords
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onInitialMovies: (payload) => dispatch(getAllMovies(payload)),
-    getMoreMoviesHandler: (payload) => dispatch(getMoreMovies(payload))
+    getMoreMoviesHandler: (payload) => dispatch(getMoreMovies(payload)),
+    getSuggestionWord: (payload) => dispatch(getSuggestionWord(payload))
   }
 }
 

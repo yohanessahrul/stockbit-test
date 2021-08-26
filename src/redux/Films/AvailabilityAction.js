@@ -14,6 +14,13 @@ export const addMoreMovies = (value) => {
   }
 }
 
+export const setSuggestionWord = (value) => {
+  return {
+    type: 'SET_SUGGESTION_WORDS',
+    payload: { data: value }
+  }
+}
+
 export const getAllMovies = (payload) => {
   return dispatch => {
     axios({
@@ -21,7 +28,8 @@ export const getAllMovies = (payload) => {
       url: `http://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.title}&page=${payload.page}`
     })
       .then((response) => {
-        dispatch(setMovies(response.data.Search))
+        let data = response.data.Search
+        dispatch(setMovies(data))
       })
       .catch((err) => {
         // console.log(`err`, err)
@@ -36,7 +44,27 @@ export const getMoreMovies = (payload) => {
       url: `http://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.title}&page=${payload.page}`
     })
       .then((response) => {
-        dispatch(addMoreMovies(response.data.Search))
+        let data = response.data.Search
+        if (data) {
+          dispatch(addMoreMovies(data))
+        }
+      })
+      .catch((err) => {
+        // console.log(`err`, err)
+      })
+  }
+}
+
+export const getSuggestionWord = (payload) => {
+  console.log(`cari`, payload.keyword)
+  return dispatch => {
+    axios({
+      method: 'get',
+      url: `http://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.keyword}&page=1`
+    })
+      .then((response) => {
+        let data = response.data.Search
+        dispatch(setSuggestionWord(data))
       })
       .catch((err) => {
         // console.log(`err`, err)
