@@ -1,0 +1,27 @@
+.Wrapper {
+  background: hotpink;
+  .Container {
+    width: 990px;
+    // height: 500px;
+    background: yellow;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 40px 20px;
+    .FilterArea {
+      width: 100%;
+      height: 50px;
+      background: blue;
+      margin-bottom: 20px;
+    }
+    .Content {
+      width: 100%;
+      background: teal;
+      .Item {
+        width: 100%;
+        height: 100px;
+        background: red;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
