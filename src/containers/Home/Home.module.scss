@@ -1,26 +1,116 @@
 .Wrapper {
-  background: hotpink;
+  // background: hotpink;
   .Container {
     width: 990px;
-    // height: 500px;
-    background: yellow;
+    background: #0a2440;
     margin: 0 auto;
     box-sizing: border-box;
     padding: 40px 20px;
     .FilterArea {
       width: 100%;
       height: 50px;
-      background: blue;
+      background: green;
       margin-bottom: 20px;
+      input[type=text] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+      }
     }
     .Content {
       width: 100%;
-      background: teal;
+      // background: teal;
       .Item {
         width: 100%;
-        height: 100px;
-        background: red;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+
+        background: #FFFFFF;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #e9fffc, #FFFFFF);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #e9fffc, #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        .Label {
+          position: absolute;
+          right: 0px;
+          top: 30px;
+          background: rgb(235, 208, 60);
+          padding: 10px 50px 10px 20px;
+          // border-radius: 8px;
+          border-bottom-right-radius: 0px;
+          border-top-right-radius: 0px;
+          border-bottom-left-radius: 10px;
+          border-top-left-radius: 10px;
+
+          font-size: 1em;
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+        .Left {
+          width: 230px;
+          height: 297px;
+          box-sizing: border-box;
+          padding: 20px;
+          .Image {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #dbdbdb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+              max-width: 100%;
+              &:hover {
+                cursor: pointer;
+              }
+            }
+            .NoImage {
+              font-size: 1.3em;
+              line-height: 1.3em;
+              font-weight: bold;
+              color: #5a5959;
+            }
+          }
+        }
+        .Right {
+          width: calc(100% - 150px);
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          box-sizing: border-box;
+          padding: 20px 50px 20px 10px;
+          .Title {
+            max-width: 580px;
+            font-size: 20px;
+            margin-bottom: 8px;
+            margin-top: 16px;
+            font-size: 1.3em;
+            line-height: 1.3em;
+            font-weight: bold;
+            color: #181818;
+            text-align: left;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+          .RatingAndDuration {
+            width: 100%;
+            .Item {
+              font-size: 0.8em;
+            }
+          }
+          .Sinopsis {
+            text-align: left;
+            font-size: 1em;
+            line-height: 1.3em;
+            color: #4d4d4d;
+          }
+        }
       }
     }
   }
