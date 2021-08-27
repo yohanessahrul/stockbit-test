@@ -1,0 +1,160 @@
+.Wrapper {
+  .Container {
+    width: 990px;
+    min-height: 100vh;
+    background: #0a2440;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 40px 20px;
+    position: relative;
+    .Content {
+      width: 100%;
+      // height: 600px;
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 40px !important;
+      display: flex;
+      justify-content: space-between;
+      box-sizing: border-box;
+      .Left {
+        width: 320px;
+        height: 100%;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .Image {
+          width: 100%;
+          height: 450px;
+          background: grey;
+          display: flex;
+          align-items: center;
+          border-radius: 8px;
+          position: relative;
+          .Duration {
+            position: absolute;
+            background: #000000;
+            bottom: 0;
+            right: 0;
+            padding: 8px 12px;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+
+          }
+          .Rating {
+            position: absolute;
+            background: #fffb00;
+            top: 0;
+            left: 0;
+            padding: 8px 12px;
+            color: #000000;
+            font-size: 1em;
+            font-weight: bold;
+          }
+          img {
+            width: 100%;
+          }
+        }
+      }
+      .Right {
+        width: calc(100% - (320px + 16px));
+        height: 100%;
+        position: relative;
+        padding-left: 30px;
+        box-sizing: border-box;
+        .Close {
+          position: absolute;
+          right: 0;
+          top: 0;
+          background: black;
+          color: white;
+          padding: 8px 10px;
+          border-radius: 6px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        .Title {
+          max-width: 480px;
+          text-align: left;
+          font-size: 1.8em;
+          line-height: 1.2em;
+          font-weight: bold;
+          padding-top: 40px;
+          margin-bottom: 15px;
+
+        }
+        .RatingAndDuration {
+          text-align: left;
+          font-size: 1em;
+          margin-bottom: 30px;
+          // line-height: 1.2em;
+
+        }
+        .Sinopsis {
+          max-width: 490px;
+          text-align: left;
+          font-size: 1em;
+          line-height: 1.2em;
+          margin-bottom: 30px;
+        }
+        .Actors {
+          text-align: left;
+          font-size: 1em;
+          line-height: 1.2em;
+          font-weight: bold;
+          margin-bottom: 14px;
+        }
+        .Genre {
+          text-align: left;
+          margin-bottom: 32px;
+          ul {
+            padding: 0px;
+            margin: 0px;
+            li {
+              float: left;
+              list-style: none;
+              padding: 4px 8px;
+              background: #efe7af;
+              margin-right: 6px;
+              margin-bottom: 6px;
+              border-radius: 4px;
+            }
+            .Clear {
+              clear: both;
+            }
+          }
+        }
+        .OthersInformation {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .Left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            .Others {
+              .Label {
+                text-align: left;
+                font-size: 1em;
+                font-weight: bold;
+                margin-bottom: 6px;
+              }
+              .Value {
+                text-align: left;
+                font-size: 0.9em;
+                margin-bottom: 14px;
+              }
+              .Clear {
+                clear: both;
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+}

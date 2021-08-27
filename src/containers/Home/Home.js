@@ -5,13 +5,14 @@ import classes from './Home.module.scss'
 import { connect } from 'react-redux'
 import Backdrop from '../../components/shared/Backdrop/Backdrop'
 import Suggestion from '../../components/shared/Suggestion/Suggestion'
-import Detail from '../../components/shared/Detail/Detail'
+import Poster from '../../components/shared/Poster/Poster'
+import { Link } from 'react-router-dom'
 
 function Home(props) {
   const [title, setTitle] = useState('batman')
   const [isActiveBackdrop, setIsActiveBackdrop] = useState(false)
   const [isActiveSuggestion, setisActiveSuggestion] = useState(false)
-  const [isActiveDetail, setIsActiveDetail] = useState(false)
+  const [isActivePoster, setIsActivePoster] = useState(false)
   const [detailData, setDetailData] = useState(null)
 
   useEffect(() => {
@@ -44,11 +45,6 @@ function Home(props) {
     }
   }
 
-  const submitKeyword = () => {
-    let payload = { title, page: 1 }
-    props.onInitialMovies(payload)
-  }
-
   const onChangeHandler = (e) => {
     setIsActiveBackdrop(true)
     setisActiveSuggestion(true)
@@ -70,13 +66,13 @@ function Home(props) {
   const clickedBackdrop = () => {
     setIsActiveBackdrop(false)
     setisActiveSuggestion(false)
-    setIsActiveDetail(false)
+    setIsActivePoster(false)
     document.body.style.overflow = 'auto';
   }
 
-  const setDetailDataHandler = (data) => {
+  const setDisplayPosterHandler = (data) => {
     setIsActiveBackdrop(true)
-    setIsActiveDetail(true)
+    setIsActivePoster(true)
     setDetailData(data)
     document.body.style.overflow = 'hidden';
   }
@@ -88,14 +84,18 @@ function Home(props) {
         <div className={classes.Item} key={movieKey}>
           <div className={classes.Label}>{movie.Type}</div>
           <div className={classes.Left}>
-            <div className={classes.Image} onClick={() => setDetailDataHandler(movie)}>
+            <div className={classes.Image} onClick={() => setDisplayPosterHandler(movie)}>
               {movie.Poster !== "N/A" ?
-                <img src={movie.Poster} />
+                <img src={movie.Poster} alt={movie.Title}/>
                 : <div className={classes.NoImage}>No Image</div>}
             </div>
           </div>
           <div className={classes.Right}>
-            <div className={classes.Title}>{movie.Title} ({movie.Year})</div>
+            <div className={classes.Title}>
+              <Link to={`/detail/${movie.imdbID}`}>
+                {movie.Title} ({movie.Year})
+              </Link>
+            </div>
             <div className={classes.RatingAndDuration}>
               <div className={classes.Item}>Rating : 4.5 &nbsp; &nbsp; Duration : 120 menit</div>
             </div>
@@ -109,19 +109,18 @@ function Home(props) {
   return (
     <div>
       <Layout>
-        <Detail isActiveDetail={isActiveDetail} detailData={detailData} clickedBackdrop={() => clickedBackdrop()}/>
+        <Poster isActivePoster={isActivePoster} detailData={detailData} clickedBackdrop={() => clickedBackdrop()}/>
         <Backdrop isActiveBackdrop={isActiveBackdrop} clickedBackdrop={() => clickedBackdrop()}/>
         <div className={classes.Wrapper}>
           <div className={classes.Container}>
             <div className={classes.FilterArea}>
               <input  
-                style={(isActiveDetail) ? {zIndex: '90'} : null}
+                style={(isActivePoster) ? {zIndex: '90'} : null}
                 type="text"
                 placeholder="Cari film.."
                 value={title}
                 onChange={(e) => onChangeHandler(e)}
                 onKeyUp={() => onKeyUpHandler()}/>
-              <button onClick={() => submitKeyword()}>Cari</button>
               <Suggestion
                 isActiveSuggestion={isActiveSuggestion}
                 suggestions={props.suggestionWords}
