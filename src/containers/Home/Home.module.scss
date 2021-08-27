@@ -22,7 +22,7 @@
         border: none;
         border-radius: 14px;
         z-index: 150;
-        font-size: 1em;
+        font-size: 1.3em;
         font-weight: bold;
       }
     }
@@ -40,19 +40,16 @@
         background: #FFFFFF;  /* fallback for old browsers */
         background: -webkit-linear-gradient(to left, #e9fffc, #FFFFFF);  /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to left, #e9fffc, #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
         .Label {
           position: absolute;
           right: 0px;
           top: 30px;
           background: rgb(235, 208, 60);
           padding: 10px 50px 10px 20px;
-          // border-radius: 8px;
           border-bottom-right-radius: 0px;
           border-top-right-radius: 0px;
           border-bottom-left-radius: 10px;
           border-top-left-radius: 10px;
-
           font-size: 1em;
           font-weight: bold;
           text-transform: capitalize;
@@ -73,15 +70,15 @@
             justify-content: center;
             img {
               max-width: 100%;
-              &:hover {
-                cursor: pointer;
-              }
             }
             .NoImage {
               font-size: 1.3em;
               line-height: 1.3em;
               font-weight: bold;
               color: #5a5959;
+            }
+            &:hover {
+              cursor: pointer;
             }
           }
         }

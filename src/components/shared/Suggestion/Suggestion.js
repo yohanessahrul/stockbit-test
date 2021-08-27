@@ -3,11 +3,10 @@ import classes from './Suggestion.module.scss'
 
 export default function Suggestion(props) {
 
-  if (props.isActiveBackdrop) {
-    let suggestion = null
+  if (props.isActiveSuggestion) {
+    let suggestion = <div className={classes.Item}>No result !</div>
     if (props.suggestions) {
       suggestion = props.suggestions.map((word, key) => {
-        console.log(`word`, word)
         return (
           <div
             onClick={() => props.clickedToChangeTitle(word.Title)}

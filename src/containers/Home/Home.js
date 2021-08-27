@@ -5,11 +5,14 @@ import classes from './Home.module.scss'
 import { connect } from 'react-redux'
 import Backdrop from '../../components/shared/Backdrop/Backdrop'
 import Suggestion from '../../components/shared/Suggestion/Suggestion'
-
+import Detail from '../../components/shared/Detail/Detail'
 
 function Home(props) {
   const [title, setTitle] = useState('batman')
   const [isActiveBackdrop, setIsActiveBackdrop] = useState(false)
+  const [isActiveSuggestion, setisActiveSuggestion] = useState(false)
+  const [isActiveDetail, setIsActiveDetail] = useState(false)
+  const [detailData, setDetailData] = useState(null)
 
   useEffect(() => {
     props.onInitialMovies({title: title, page: props.page})
@@ -48,6 +51,7 @@ function Home(props) {
 
   const onChangeHandler = (e) => {
     setIsActiveBackdrop(true)
+    setisActiveSuggestion(true)
     setTitle(e.target.value)
   }
 
@@ -58,8 +62,23 @@ function Home(props) {
   const changeTitleFromSuggestionHandler = (value) => {
     setTitle(value)
     setIsActiveBackdrop(false)
+    setisActiveSuggestion(false)
     props.onInitialMovies({ title: value, page: 1 })
 
+  }
+
+  const clickedBackdrop = () => {
+    setIsActiveBackdrop(false)
+    setisActiveSuggestion(false)
+    setIsActiveDetail(false)
+    document.body.style.overflow = 'auto';
+  }
+
+  const setDetailDataHandler = (data) => {
+    setIsActiveBackdrop(true)
+    setIsActiveDetail(true)
+    setDetailData(data)
+    document.body.style.overflow = 'hidden';
   }
   
   let movieList = null
@@ -69,7 +88,7 @@ function Home(props) {
         <div className={classes.Item} key={movieKey}>
           <div className={classes.Label}>{movie.Type}</div>
           <div className={classes.Left}>
-            <div className={classes.Image}>
+            <div className={classes.Image} onClick={() => setDetailDataHandler(movie)}>
               {movie.Poster !== "N/A" ?
                 <img src={movie.Poster} />
                 : <div className={classes.NoImage}>No Image</div>}
@@ -90,11 +109,13 @@ function Home(props) {
   return (
     <div>
       <Layout>
-        <Backdrop isActiveBackdrop={isActiveBackdrop} clickedBackdrop={() => setIsActiveBackdrop(!isActiveBackdrop)}/>
+        <Detail isActiveDetail={isActiveDetail} detailData={detailData} clickedBackdrop={() => clickedBackdrop()}/>
+        <Backdrop isActiveBackdrop={isActiveBackdrop} clickedBackdrop={() => clickedBackdrop()}/>
         <div className={classes.Wrapper}>
           <div className={classes.Container}>
             <div className={classes.FilterArea}>
               <input  
+                style={(isActiveDetail) ? {zIndex: '90'} : null}
                 type="text"
                 placeholder="Cari film.."
                 value={title}
@@ -102,7 +123,7 @@ function Home(props) {
                 onKeyUp={() => onKeyUpHandler()}/>
               <button onClick={() => submitKeyword()}>Cari</button>
               <Suggestion
-                isActiveBackdrop={isActiveBackdrop}
+                isActiveSuggestion={isActiveSuggestion}
                 suggestions={props.suggestionWords}
                 clickedToChangeTitle={(value) => changeTitleFromSuggestionHandler(value)}/>
             </div>

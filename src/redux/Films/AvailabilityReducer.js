@@ -20,7 +20,6 @@ const addMoreMovies = (state, action) => {
 }
 
 const setSuggestionWords = (state, action) => {
-  console.log(`data`, action.payload.data)
   return ({...state}, {suggestionWords: action.payload.data})
 }
 
