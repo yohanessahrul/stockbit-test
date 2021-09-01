@@ -32,7 +32,7 @@ export const getAllMovies = (payload) => {
   return dispatch => {
     axios({
       method: 'get',
-      url: `http://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.title}&page=${payload.page}`
+      url: `https://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.title}&page=${payload.page}`
     })
       .then((response) => {
         let data = response.data.Search
@@ -48,7 +48,7 @@ export const getMoreMovies = (payload) => {
   return dispatch => {
     axios({
       method: 'get',
-      url: `http://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.title}&page=${payload.page}`
+      url: `https://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.title}&page=${payload.page}`
     })
       .then((response) => {
         let data = response.data.Search
@@ -66,7 +66,7 @@ export const getSuggestionWord = (payload) => {
   return dispatch => {
     axios({
       method: 'get',
-      url: `http://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.keyword}&page=1`
+      url: `https://www.omdbapi.com/?apikey=faf7e5bb&s=${payload.keyword}&page=1`
     })
       .then((response) => {
         let data = response.data.Search
@@ -82,7 +82,7 @@ export const getDetailMovie = (payload) => {
   return dispatch => {
     axios({
       method: 'get',
-      url: `http://www.omdbapi.com/?apikey=faf7e5bb&i=${payload.id}`
+      url: `https://www.omdbapi.com/?apikey=faf7e5bb&i=${payload.id}`
     })
       .then((response) => {
         let data = response.data
